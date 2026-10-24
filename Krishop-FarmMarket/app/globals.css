@@ -1,2 +1,40 @@
 @import "tailwindcss";
 
+:root {
+    --forest: #0d542f;
+    --leaf: #2f8a52;
+    --mint: #e1f4e6;
+    --cream: #f3faf4;
+    --ink: #10291b;
+    --muted: #5c7564;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--cream);
+    color: var(--ink);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+    transition: all 160ms ease;
+}
+
+.soft-shadow {
+    box-shadow: 0 14px 40px rgba(23, 74, 54, 0.08);
+}
+
+.dashboard-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar-thumb {
+    background: #cddbd0;
+    border-radius: 999px;
+}

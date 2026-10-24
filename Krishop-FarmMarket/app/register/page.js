@@ -7,6 +7,7 @@ const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('farmer');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -21,7 +22,7 @@ const RegisterPage = () => {
         }
 
         try {
-            const user = { username, email, password };
+            const user = { username, email, password, role };
             await axios.post('/api/register', user);
             setSuccess('Registration successful! Please login.');
         } catch (err) {
@@ -33,6 +34,13 @@ const RegisterPage = () => {
         <div className="max-w-md mx-auto p-8">
             <h1 className="text-2xl font-bold mb-4">Register</h1>
             <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <label htmlFor="role" className="block mb-1">I am joining as</label>
+                    <select id="role" value={role} onChange={(e) => setRole(e.target.value)} className="w-full p-2 border rounded">
+                        <option value="farmer">Farmer</option>
+                        <option value="buyer">Buyer</option>
+                    </select>
+                </div>
                 <div className="mb-4">
                     <label htmlFor="username" className="block mb-1">Username</label>
                     <input

@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const connect = async () => {
-    const uri = process.env.MONGO_URI
-    await mongoose.connect(uri)
-}
+    if (!process.env.MONGO_URI) throw new Error("MONGO_URI is not configured");
+    if (mongoose.connection.readyState === 1) return;
+    await mongoose.connect(process.env.MONGO_URI);
+};
 
-export default connect
+export default connect;

@@ -7,7 +7,14 @@ import bcrypt from 'bcryptjs';
 export const POST = async (request) => {
   try {
     await connect();
-    const { username, email, password } = await request.json();
+    const { username, email, password, role = 'buyer' } = await request.json();
+
+    if (!username || username.trim().length < 2 || !email || !email.includes('@')) {
+      return NextResponse.json({ message: 'Enter a valid username and email' }, { status: 400 });
+    }
+    if (!['farmer', 'buyer'].includes(role)) {
+      return NextResponse.json({ message: 'Choose farmer or buyer' }, { status: 400 });
+    }
 
     if (!password || password.length < 6) {
       return NextResponse.json(
@@ -31,6 +38,7 @@ export const POST = async (request) => {
       username,
       email,
       password: hashedPassword,
+      role,
     });
 
     await newUser.save();

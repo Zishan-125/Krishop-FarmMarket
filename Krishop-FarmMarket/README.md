@@ -1,87 +1,60 @@
 # KriShop
 
-KriShop is a modern e-commerce application built with Next.js 16 and MongoDB. It features a comprehensive shopping experience with role-based dashboards for users, vendors, and admins.
+KriShop is a Next.js and MongoDB marketplace for connecting farmers with buyers in Bangladesh. The produce marketplace uses its own listing and observed-price models alongside the existing catalog and checkout.
 
-## Features
+## Current capabilities
 
--   **Authentication**: Secure login and registration using NextAuth.js.
--   **Role-Based Access**: Specialized dashboards for different user roles:
-    -   **User**: Browse products, manage cart, view order history.
-    -   **Vendor**: Manage own products and sales.
-    -   **Admin**: Full system oversight, manage users, products, and orders.
--   **Product Management**: Browse, search, and view product details. Admins and Vendors can create, update, and delete products.
--   **Shopping Cart**: Real-time cart management with add/remove functionality.
--   **Checkout & Payment**: Integrated checkout flow (SSLCommerz) with payment success/failure handling.
--   **Responsive Design**: Built with Tailwind CSS for a mobile-first, responsive interface.
+- Credentials authentication with farmer and buyer registration roles.
+- Existing product catalog, cart, vendor/admin dashboards, and payment flow.
+- Produce listings with crop, quantity, unit, asking price, quality, location, and availability details.
+- Public marketplace search by crop and location with bounded pagination.
+- Authenticated listing creation for farmers, vendors, and admins.
+- Observed market-price API that distinguishes source observations from forecasts.
+- Responsive empty, loading, success, and failure states.
 
-## Tech Stack
+Forecasting, image quality classification, LLM assistance, weather, logistics routing, and third-party datasets are intentionally reported as unavailable until a real provider/model is configured. The application does not fabricate predictions or live prices.
 
--   **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
--   **Language**: JavaScript
--   **Database**: [MongoDB](https://www.mongodb.com/) (with Mongoose ODM)
--   **Authentication**: [NextAuth.js](https://next-auth.js.org/)
--   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
--   **Notifications**: React Toastify & SweetAlert2
+## Technology and structure
 
-## Getting Started
+- Next.js 16 App Router, React 19, JavaScript
+- MongoDB with Mongoose
+- NextAuth JWT sessions
+- Tailwind CSS v4, React Toastify, Axios
 
-Follow these steps to set up the project locally.
+Important directories:
 
-### Prerequisites
+- `app/marketplace` and `app/listings/new`: farmer marketplace screens
+- `app/api/listings` and `app/api/prices`: marketplace APIs
+- `Model/`: Mongoose models, including `ProduceListing` and `MarketPrice`
+- `utils/`: database connection, authentication wrapper, and input validation
+- `Components/`: shared navigation and existing shopping components
 
--   Node.js (v18 or later recommended)
--   MongoDB Database (local or Atlas)
+## Local setup
 
-### Installation
+Prerequisites: Node.js 18+ and a MongoDB database.
 
-1.  **Clone the repository:**
+```bash
+npm install
+cp .env.example .env.local
+# Set MONGO_URI and NEXTAUTH_SECRET in .env.local
+npm run dev
+```
 
-    ```bash
-    git clone https://github.com/yourusername/krishop.git
-    cd krishop
-    ```
+Open http://localhost:3000. Register as a farmer to publish produce or as a buyer to browse and contact sellers. Never commit `.env.local`; it is ignored by Git.
 
-2.  **Install dependencies:**
+## Environment variables
 
-    ```bash
-    npm install
-    ```
+`MONGO_URI`, `NEXTAUTH_SECRET`, and `NEXTAUTH_URL` are required. Payment and Google OAuth variables are optional and only needed for their existing integrations. `OPENWEATHER_API_KEY` and `FORECAST_SERVICE_URL` are reserved for future server-side integrations.
 
-3.  **Environment Setup:**
+## Data and AI boundaries
 
-    Create a `.env.local` file in the root directory and add the following variables:
+`GET /api/prices` returns only persisted observations and labels them with `sourceType: "observed"`. There is currently no trained forecasting or computer-vision model in this repository. To add one, provide a documented inference service boundary, dataset/label definitions, time-based evaluation, model metadata, and an explicit unavailable state when the service cannot be reached. PlantVillage is suitable for some plant-disease experiments but does not automatically provide fruit-ripeness or market-grade labels.
 
-    ```env
-    MONGO_DB_URI=your_mongodb_connection_string
-    NEXTAUTH_SECRET=your_nextauth_secret_key
-    NEXTAUTH_URL=http://localhost:3000
+## Verification
 
-    # Store ID and Password for Payment Gateway (if applicable)
-    STORE_ID=your_store_id
-    STORE_Pass=your_store_password
-    ```
+```bash
+npm run lint
+npm run build
+```
 
-4.  **Run the development server:**
-
-    ```bash
-    npm run dev
-    ```
-
-    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Project Structure
-
--   `app/`: Main application code (App Router).
-    -   `api/`: Backend API routes.
-    -   `dashboard/`: Role-based dashboard pages.
-    -   `login/` & `register/`: Authentication pages.
--   `Components/`: Reusable UI components (Header, Cart, ProductCard, etc.).
--   `Model/`: Mongoose data models (User, Product, CartModel).
--   `utils/`: Utility functions (Database connection, helper scripts).
-
-## Scripts
-
--   `npm run dev`: Runs the development server with Turbopack.
--   `npm run build`: Builds the application for production.
--   `npm start`: Starts the production server.
--   `npm run lint`: Runs ESLint for code quality.
+The build does not require a live database connection. API and authentication flows require a reachable MongoDB instance and valid local environment variables. The changed marketplace files pass ESLint. The full legacy application lint currently reports existing issues in `Components/EditProductPopup.js`, `context/CartContext.js`, and `app/dashboard/user/page.js`; these are outside the marketplace changes.
