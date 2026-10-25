@@ -61,9 +61,9 @@
 
 - [x] Step 0 audit and plan
 - [x] Phase 1 marketplace and demand matching
-- [ ] Phase 2 pricing intelligence
+- [~] Phase 2 pricing intelligence (offline service, proxy, and UI; Prophet training remains optional)
 - [ ] Phase 3 computer-vision grading
-- [ ] Phase 4 regional-language advisor
-- [ ] Phase 5 logistics
-- [ ] Phase 6 traceability
+- [~] Phase 4 regional-language advisor (grounded fallback and UI; provider integration remains optional)
+- [~] Phase 5 logistics (offline route planner and API; transporter workflow remains)
+- [~] Phase 6 traceability (batch model, ledger verification API, and public shell; event APIs remain)
 - [ ] Phase 7 impact dashboards

@@ -27,6 +27,8 @@ export default function Header() {
 
                 <nav className="hidden items-center gap-7 text-sm font-medium text-[#526158] lg:flex">
                     <Link href="/marketplace" className="hover:text-[#174a36]">Marketplace</Link>
+                    <Link href="/price-intelligence" className="hover:text-[#174a36]">Prices</Link>
+                    <Link href="/advisor" className="hover:text-[#174a36]">Advisor</Link>
                     <Link href="/#how-it-works" className="hover:text-[#174a36]">How it works</Link>
                     <Link href="/#about" className="hover:text-[#174a36]">About us</Link>
                 </nav>
@@ -53,6 +55,8 @@ export default function Header() {
                 <nav className="border-t border-[#dfe9e1] bg-white px-5 py-4 lg:hidden">
                     <div className="flex flex-col gap-3 text-sm font-semibold text-[#526158]">
                         <Link href="/marketplace" onClick={() => setIsMenuOpen(false)}>Marketplace</Link>
+                        <Link href="/price-intelligence" onClick={() => setIsMenuOpen(false)}>Price intelligence</Link>
+                        <Link href="/advisor" onClick={() => setIsMenuOpen(false)}>Advisor</Link>
                         <Link href="/#how-it-works" onClick={() => setIsMenuOpen(false)}>How it works</Link>
                         {session ? <><Link href={`/dashboard/${session.user.role}`} onClick={() => setIsMenuOpen(false)}>Dashboard</Link><button className="text-left" onClick={handleLogout}>Sign out</button></> : <Link href="/login" onClick={() => setIsMenuOpen(false)}>Sign in</Link>}
                     </div>

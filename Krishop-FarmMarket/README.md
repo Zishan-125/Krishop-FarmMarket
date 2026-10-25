@@ -13,8 +13,11 @@ KriShop is a Next.js and MongoDB marketplace for connecting farmers with buyers 
 - Buyer demand board, transparent crop/quantity/price/location matching, offers, and fair-price badges.
 - Offline `npm run seed` demo data for users, prices, 105 listings, and buyer demands.
 - Responsive empty, loading, success, and failure states.
+- Optional offline ML service with forecast, advisor, logistics, and traceability boundaries.
+- Price intelligence and regional-language advisor screens with explicit estimate/source labels.
+- Hash-chain batch verification API and public traceability route.
 
-Forecasting, image quality classification, LLM assistance, weather, logistics routing, and third-party datasets are intentionally reported as unavailable until a real provider/model is configured. The application does not fabricate predictions or live prices.
+Forecasting, image quality classification, LLM assistance, weather, logistics routing, and third-party datasets remain optional. The included ML service uses a clearly labelled deterministic baseline and does not claim trained accuracy or live prices.
 
 ## Technology and structure
 
@@ -52,19 +55,28 @@ npm run seed
 
 Demo accounts use password `KriShopDemo123!`: `farmer@krishop.demo`, `buyer@krishop.demo`, and `admin@krishop.demo`.
 
+To run the optional baseline service:
+
+```bash
+cd ml-service
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
 ## Environment variables
 
-`MONGO_URI`, `NEXTAUTH_SECRET`, and `NEXTAUTH_URL` are required. Payment and Google OAuth variables are optional and only needed for their existing integrations. `OPENWEATHER_API_KEY` and `FORECAST_SERVICE_URL` are reserved for future server-side integrations.
+`MONGO_URI`, `NEXTAUTH_SECRET`, and `NEXTAUTH_URL` are required. Payment and Google OAuth variables are optional and only needed for their existing integrations. `ML_SERVICE_URL`, `LLM_API_URL`, `LLM_API_KEY`, and `OSRM_URL` are optional.
 
 ## Data and AI boundaries
 
-`GET /api/prices` returns only persisted observations and labels them with `sourceType: "observed"`. There is currently no trained forecasting or computer-vision model in this repository. To add one, provide a documented inference service boundary, dataset/label definitions, time-based evaluation, model metadata, and an explicit unavailable state when the service cannot be reached. PlantVillage is suitable for some plant-disease experiments but does not automatically provide fruit-ripeness or market-grade labels.
+`GET /api/prices` returns only persisted observations and labels them with `sourceType: "observed"`. The optional `ml-service/` provides a deterministic forecast baseline and an explicit unavailable response for image grading. To add trained models, provide a documented inference boundary, dataset/label definitions, time-based evaluation, model metadata, and an explicit unavailable state when the service cannot be reached. PlantVillage is suitable for some plant-disease experiments but does not automatically provide fruit-ripeness or market-grade labels.
 
 ## Verification
 
 ```bash
 npm run lint
 npm run build
+npm run test:unit
 ```
 
 The build does not require a live database connection. API and authentication flows require a reachable MongoDB instance and valid local environment variables. The changed marketplace files pass ESLint. The full legacy application lint currently reports existing issues in `Components/EditProductPopup.js`, `context/CartContext.js`, and `app/dashboard/user/page.js`; these are outside the marketplace changes.
