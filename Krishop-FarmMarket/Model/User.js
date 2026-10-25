@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
         enum: ['admin', 'user', 'vendor', 'farmer', 'buyer'],
         default: 'user'
     },
+    phone: { type: String, trim: true, maxlength: 30, default: '' },
+    district: { type: String, trim: true, maxlength: 80, default: '' },
+    bio: { type: String, trim: true, maxlength: 500, default: '' },
+    businessName: { type: String, trim: true, maxlength: 120, default: '' },
     createdAt: {
         type: Date,
         default: Date.now
