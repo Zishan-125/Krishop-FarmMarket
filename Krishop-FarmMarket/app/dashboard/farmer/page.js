@@ -31,6 +31,10 @@ export default function FarmerDashboard() {
                     <h2 className="text-xl font-bold text-stone-900">Browse marketplace</h2>
                     <p className="mt-2 text-sm text-stone-600">See what buyers and other farmers are offering.</p>
                 </Link>
+                <Link href="/demands" className="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+                    <h2 className="text-xl font-bold text-stone-900">Buyer demand</h2>
+                    <p className="mt-2 text-sm text-stone-600">Find open requests that match your crops.</p>
+                </Link>
                 <Link href="/dashboard/farmer/profile" className="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
                     <h2 className="text-xl font-bold text-stone-900">Your profile</h2>
                     <p className="mt-2 text-sm text-stone-600">Keep your contact and location details up to date.</p>

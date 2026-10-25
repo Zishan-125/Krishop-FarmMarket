@@ -10,6 +10,8 @@ KriShop is a Next.js and MongoDB marketplace for connecting farmers with buyers 
 - Public marketplace search by crop and location with bounded pagination.
 - Authenticated listing creation for farmers, vendors, and admins.
 - Observed market-price API that distinguishes source observations from forecasts.
+- Buyer demand board, transparent crop/quantity/price/location matching, offers, and fair-price badges.
+- Offline `npm run seed` demo data for users, prices, 105 listings, and buyer demands.
 - Responsive empty, loading, success, and failure states.
 
 Forecasting, image quality classification, LLM assistance, weather, logistics routing, and third-party datasets are intentionally reported as unavailable until a real provider/model is configured. The application does not fabricate predictions or live prices.
@@ -40,7 +42,15 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. Register as a farmer to publish produce or as a buyer to browse and contact sellers. Never commit `.env.local`; it is ignored by Git.
+Open http://localhost:3000. Register as a farmer to publish produce or as a buyer to browse and post demands. Never commit `.env.local`; it is ignored by Git.
+
+To load the offline Phase 1 demo dataset:
+
+```bash
+npm run seed
+```
+
+Demo accounts use password `KriShopDemo123!`: `farmer@krishop.demo`, `buyer@krishop.demo`, and `admin@krishop.demo`.
 
 ## Environment variables
 

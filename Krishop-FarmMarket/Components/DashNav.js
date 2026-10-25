@@ -14,6 +14,7 @@ const links = {
     buyer: [
         ["Overview", "/dashboard/buyer"],
         ["Marketplace", "/marketplace"],
+        ["Demand board", "/demands"],
         ["Orders", "/dashboard/buyer/orders"],
         ["Profile", "/dashboard/buyer/profile"],
     ],

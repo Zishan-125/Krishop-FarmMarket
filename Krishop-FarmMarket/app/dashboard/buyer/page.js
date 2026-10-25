@@ -27,6 +27,10 @@ export default function BuyerDashboard() {
                     <h2 className="text-xl font-bold">Browse produce</h2>
                     <p className="mt-2 text-sm text-green-50">Search active listings by crop and location.</p>
                 </Link>
+                <Link href="/demands" className="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+                    <h2 className="text-xl font-bold text-stone-900">Post a demand</h2>
+                    <p className="mt-2 text-sm text-stone-600">Tell farmers what produce you need.</p>
+                </Link>
                 <Link href="/dashboard/buyer/orders" className="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
                     <h2 className="text-xl font-bold text-stone-900">Your orders</h2>
                     <p className="mt-2 text-sm text-stone-600">Review your order history and purchase status.</p>

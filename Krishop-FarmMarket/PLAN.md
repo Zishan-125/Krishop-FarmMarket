@@ -60,7 +60,7 @@
 ## Phase status
 
 - [x] Step 0 audit and plan
-- [ ] Phase 1 marketplace and demand matching
+- [x] Phase 1 marketplace and demand matching
 - [ ] Phase 2 pricing intelligence
 - [ ] Phase 3 computer-vision grading
 - [ ] Phase 4 regional-language advisor
