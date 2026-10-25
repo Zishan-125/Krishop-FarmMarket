@@ -148,8 +148,8 @@ const AllProducts = () => {
                                         <p className="text-gray-900 whitespace-no-wrap">{product.stock}</p>
                                     </td>
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <span className={`relative inline-block px-3 py-1 font-semibold leading-tight ${product.isActive ? 'text-green-900' : 'text-red-900'}`}>
-                                            <span aria-hidden className={`absolute inset-0 ${product.isActive ? 'bg-green-200' : 'bg-red-200'} opacity-50 rounded-full`}></span>
+                                        <span className={`relative inline-block px-3 py-1 font-semibold leading-tight ${product.isActive ? 'text-[#0b3d20]' : 'text-red-900'}`}>
+                                            <span aria-hidden className={`absolute inset-0 ${product.isActive ? 'bg-[#d9ed67]' : 'bg-red-200'} opacity-50 rounded-full`}></span>
                                             <span className="relative">{product.isActive ? 'Active' : 'Inactive'}</span>
                                         </span>
                                     </td>

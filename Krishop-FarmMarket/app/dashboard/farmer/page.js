@@ -13,7 +13,7 @@ export default function FarmerDashboard() {
     return (
         <div className="max-w-5xl">
             <div className="mb-8">
-                <p className="font-semibold uppercase tracking-widest text-green-700">Farmer dashboard</p>
+                <p className="font-semibold uppercase tracking-widest text-[#14532d]">Farmer dashboard</p>
                 <h1 className="mt-2 text-3xl font-bold text-stone-900">
                     Welcome{session?.user?.name ? `, ${session.user.name}` : ''}
                 </h1>
@@ -23,9 +23,9 @@ export default function FarmerDashboard() {
             </div>
 
             <div className="grid gap-5 md:grid-cols-3">
-                <Link href="/listings/new" className="rounded-xl bg-green-700 p-6 text-white transition hover:bg-green-800">
+                <Link href="/listings/new" className="rounded-xl bg-[#14532d] p-6 text-white transition hover:bg-[#0f4725]">
                     <h2 className="text-xl font-bold">List produce</h2>
-                    <p className="mt-2 text-sm text-green-50">Publish your available crops and asking price.</p>
+                    <p className="mt-2 text-sm text-[#f4fae9]">Publish your available crops and asking price.</p>
                 </Link>
                 <Link href="/marketplace" className="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
                     <h2 className="text-xl font-bold text-stone-900">Browse marketplace</h2>

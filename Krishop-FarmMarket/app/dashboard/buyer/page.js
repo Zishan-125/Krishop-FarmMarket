@@ -13,7 +13,7 @@ export default function BuyerDashboard() {
     return (
         <div className="max-w-5xl">
             <div className="mb-8">
-                <p className="font-semibold uppercase tracking-widest text-green-700">Buyer dashboard</p>
+                <p className="font-semibold uppercase tracking-widest text-[#14532d]">Buyer dashboard</p>
                 <h1 className="mt-2 text-3xl font-bold text-stone-900">
                     Welcome{session?.user?.name ? `, ${session.user.name}` : ''}
                 </h1>
@@ -23,9 +23,9 @@ export default function BuyerDashboard() {
             </div>
 
             <div className="grid gap-5 md:grid-cols-3">
-                <Link href="/marketplace" className="rounded-xl bg-green-700 p-6 text-white transition hover:bg-green-800">
+                <Link href="/marketplace" className="rounded-xl bg-[#14532d] p-6 text-white transition hover:bg-[#0f4725]">
                     <h2 className="text-xl font-bold">Browse produce</h2>
-                    <p className="mt-2 text-sm text-green-50">Search active listings by crop and location.</p>
+                    <p className="mt-2 text-sm text-[#f4fae9]">Search active listings by crop and location.</p>
                 </Link>
                 <Link href="/demands" className="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
                     <h2 className="text-xl font-bold text-stone-900">Post a demand</h2>

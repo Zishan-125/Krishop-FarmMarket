@@ -28,6 +28,6 @@ export default function NewListingPage() {
             <label className="text-sm font-semibold">Grade<select name="grade" value={form.grade} onChange={update} className="mt-1 w-full rounded-lg border p-3 font-normal">{['A', 'B', 'C'].map((grade) => <option key={grade}>{grade}</option>)}</select></label>
         </div>
         <label className="mt-4 block text-sm font-semibold">Description<textarea name="description" value={form.description} onChange={update} rows="3" className="mt-1 w-full rounded-lg border p-3 font-normal" /></label>
-        {message && <p className="mt-4 text-sm text-red-700">{message}</p>}<button className="mt-6 rounded-lg bg-green-700 px-5 py-3 font-semibold text-white">Publish listing</button>
+        {message && <p className="mt-4 text-sm text-red-700">{message}</p>}<button className="mt-6 rounded-lg bg-[#14532d] px-5 py-3 font-semibold text-white">Publish listing</button>
     </form></main></>;
 }

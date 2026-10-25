@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
 :root {
-    --forest: #0d542f;
-    --leaf: #2f8a52;
-    --mint: #e1f4e6;
-    --cream: #f3faf4;
+    --forest: #14532d;
+    --leaf: #4d9f45;
+    --crop-yellow: #d9ed67;
+    --crop-gold: #d1a51f;
+    --mint: #e7f5c8;
+    --cream: #f4fae9;
     --ink: #10291b;
     --muted: #5c7564;
 }
@@ -16,6 +18,7 @@
 body {
     background: var(--cream);
     color: var(--ink);
+    background-image: radial-gradient(circle at 10% 0%, rgba(217, 237, 103, 0.16), transparent 28rem);
 }
 
 button,
@@ -24,6 +27,28 @@ input,
 select,
 textarea {
     transition: all 160ms ease;
+}
+
+::selection {
+    background: var(--crop-yellow);
+    color: var(--forest);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--leaf);
+    outline: 3px solid rgba(217, 237, 103, 0.38);
+    outline-offset: 1px;
+}
+
+.crop-accent {
+    background: var(--crop-yellow);
+    color: var(--forest);
+}
+
+.crop-border {
+    border-color: var(--crop-yellow);
 }
 
 .soft-shadow {
@@ -35,6 +60,6 @@ textarea {
 }
 
 .dashboard-scrollbar::-webkit-scrollbar-thumb {
-    background: #cddbd0;
+    background: #c8dcaa;
     border-radius: 999px;
 }

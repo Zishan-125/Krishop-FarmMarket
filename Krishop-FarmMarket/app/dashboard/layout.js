@@ -7,8 +7,8 @@ import DashNav from '@/Components/DashNav';
 
 const DashboardLayout = ({ children }) => {
     return (
-        <div className="flex min-h-screen bg-[#f3faf4]">
-            <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col bg-[#0d542f] lg:flex">
+        <div className="flex min-h-screen bg-[#f4fae9]">
+            <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col bg-[#14532d] lg:flex">
                 <Link href="/" className="flex items-center gap-2.5 border-b border-white/10 px-6 py-5">
                     <Image src={logo} alt="KriShop logo" height={38} width={38} className="h-9 w-9 object-contain" />
                     <span className="text-xl font-bold text-white">Kri<span className="text-[#8ee0a7]">Shop</span></span>
@@ -22,7 +22,7 @@ const DashboardLayout = ({ children }) => {
             </aside>
             <main className="dashboard-scrollbar min-w-0 flex-1 overflow-y-auto lg:ml-64">
                 <div className="border-b border-[#e0e9e1] bg-white px-5 py-4 lg:hidden">
-                    <Link href="/" className="font-bold text-[#0d542f]">KriShop</Link>
+                    <Link href="/" className="font-bold text-[#14532d]">KriShop</Link>
                 </div>
                 <div className="mx-auto max-w-7xl p-5 sm:p-8 lg:p-12">{children}</div>
             </main>

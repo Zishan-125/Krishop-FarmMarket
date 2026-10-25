@@ -37,12 +37,12 @@ const SuccessContent = () => {
     }, [tran_id, removeSelectedFromCart]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-green-50">
-            <h1 className="text-4xl font-bold text-green-700 mb-4">Payment Successful!</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#f4fae9]">
+            <h1 className="text-4xl font-bold text-[#14532d] mb-4">Payment Successful!</h1>
             <p className="text-lg text-gray-700 mb-8">Thank you for your purchase.</p>
 
             <p className="text-md text-gray-500 mb-8">Transaction ID: {tran_id}</p>
-            <Link href="/" className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition-colors">
+            <Link href="/" className="px-6 py-3 bg-[#14532d] text-white rounded-lg hover:bg-[#0f4725] transition-colors">
                 Go to Home
             </Link>
         </div>

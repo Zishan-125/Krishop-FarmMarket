@@ -9,7 +9,7 @@ export default function BuyerOrdersPage() {
             <p className="mt-3 text-stone-600">
                 No KriShop produce orders have been placed yet.
             </p>
-            <Link href="/marketplace" className="mt-6 inline-block rounded-lg bg-green-700 px-5 py-3 font-semibold text-white">
+            <Link href="/marketplace" className="mt-6 inline-block rounded-lg bg-[#14532d] px-5 py-3 font-semibold text-white">
                 Browse marketplace
             </Link>
         </div>
