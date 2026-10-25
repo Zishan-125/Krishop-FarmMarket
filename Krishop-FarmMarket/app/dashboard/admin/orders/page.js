@@ -1,80 +1,39 @@
 'use client';
-import axios from 'axios';
-import { useSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react';
 
-const Orders = () => {
-    const [orderedProducts, setOrderedProducts] = useState([]);
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+
+export default function AdminOrdersPage() {
+    const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { data: session, status } = useSession();
+    const { status } = useSession();
 
     useEffect(() => {
-        const fetchOrderedProducts = async () => {
-            if (session?.user?.id) {
-                setLoading(true);
-                try {
-                    const response = await axios.get(`/api/ordered`);
-                    if (response.status === 200) {
-                        setOrderedProducts(response.data.orders);
-                    } else {
-                        console.error('Error fetching ordered products:', response.statusText);
-                    }
-                } catch (error) {
-                    console.error('Error fetching ordered products:', error);
-                } finally {
-                    setLoading(false);
-                }
-            }
-        };
+        if (status !== 'authenticated') return;
+        axios.get('/api/ordered')
+            .then((response) => setOrders(response.data.orders || []))
+            .catch((error) => console.error('Error fetching orders:', error))
+            .finally(() => setLoading(false));
+    }, [status]);
 
-        if (status === 'authenticated') {
-            fetchOrderedProducts();
-        } else if (status === 'unauthenticated') {
-            setLoading(false);
-            setOrderedProducts([]);
-        }
-    }, [status, session]);
-
-    if (status === 'loading' || loading) {
-        return <div style={{ padding: '2rem' }}><p>Loading orders...</p></div>;
-    }
+    const orderValue = orders.reduce((total, order) => total + order.items.reduce((sum, item) => sum + (item.totalPrice || 0), 0), 0);
 
     return (
-        <div style={{ padding: '2rem' }}>
-            <h1>Your Ordered Products</h1>
-            {orderedProducts.length > 0 ? (
-                orderedProducts.map((order) => (
-                    <div key={order._id} style={{ marginBottom: '2rem', border: '1px solid #ccc', borderRadius: '8px', padding: '1rem' }}>
-                        <h2 style={{ borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
-                            Order: {order.transactionId}
-                        </h2>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                            <thead>
-                                <tr>
-                                    <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Product Name</th>
-                                    <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Price</th>
-                                    <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Quantity</th>
-                                    <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Total Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {order.items.map((item) => (
-                                    <tr key={item._id}>
-                                        <td style={{ border: '1px solid #ddd', padding: '8px' }}>{item.productName}</td>
-                                        <td style={{ border: '1px solid #ddd', padding: '8px' }}>{item.price}</td>
-                                        <td style={{ border: '1px solid #ddd', padding: '8px' }}>{item.quantity}</td>
-                                        <td style={{ border: '1px solid #ddd', padding: '8px' }}>{item.totalPrice}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                ))
-            ) : (
-                <p>You have no ordered products.</p>
-            )}
+        <div className="max-w-6xl">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+                <div><p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2f8a52]">Administration</p><h1 className="mt-2 text-3xl font-bold text-[#0d542f]">Order management</h1><p className="mt-2 text-sm text-[#718078]">Monitor purchases and payment status across KriShop.</p></div>
+                <span className="rounded-full bg-[#e1f4e6] px-4 py-2 text-sm font-bold text-[#2f8a52]">{orders.length} total orders</span>
+            </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl border border-[#dceadf] bg-white p-5 shadow-sm"><p className="text-xs font-bold uppercase tracking-wider text-[#829087]">Orders</p><p className="mt-2 text-3xl font-bold text-[#0d542f]">{orders.length}</p></div>
+                <div className="rounded-2xl border border-[#dceadf] bg-white p-5 shadow-sm"><p className="text-xs font-bold uppercase tracking-wider text-[#829087]">Gross value</p><p className="mt-2 text-3xl font-bold text-[#0d542f]">৳{orderValue.toLocaleString()}</p></div>
+                <div className="rounded-2xl border border-[#dceadf] bg-white p-5 shadow-sm"><p className="text-xs font-bold uppercase tracking-wider text-[#829087]">Pending review</p><p className="mt-2 text-3xl font-bold text-[#c66a3d]">{orders.filter((order) => order.status === 'Pending').length}</p></div>
+            </div>
+            <section className="mt-8 overflow-hidden rounded-2xl border border-[#dceadf] bg-white shadow-sm">
+                <div className="border-b border-[#edf2ed] px-6 py-5"><h2 className="font-bold text-[#173d27]">Recent orders</h2></div>
+                {loading ? <div className="p-8 text-center text-sm text-[#718078]">Loading orders...</div> : orders.length === 0 ? <div className="p-12 text-center"><p className="font-semibold text-[#173d27]">No orders yet</p><p className="mt-1 text-sm text-[#718078]">Completed purchases will appear here.</p></div> : <div className="divide-y divide-[#edf2ed]">{orders.map((order) => <div key={order._id} className="flex flex-wrap items-center justify-between gap-4 px-6 py-5"><div><p className="font-bold text-[#173d27]">#{order.transactionId}</p><p className="mt-1 text-sm text-[#718078]">{order.items.length} item{order.items.length === 1 ? '' : 's'} · Customer {order.userId}</p></div><div className="flex items-center gap-5"><p className="font-bold text-[#0d542f]">৳{order.items.reduce((sum, item) => sum + (item.totalPrice || 0), 0).toLocaleString()}</p><span className="rounded-full bg-[#fff4e5] px-3 py-1 text-xs font-bold text-[#a6631d]">{order.status || 'Pending'}</span></div></div>)}</div>}
+            </section>
         </div>
     );
-};
-
-export default Orders;
+}

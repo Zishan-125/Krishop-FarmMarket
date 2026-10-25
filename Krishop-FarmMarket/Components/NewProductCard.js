@@ -1,60 +1,34 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const NewProductCard = ({ product }) => {
-
-    const isDiscountActive = () => {
-        if (!product.discount?.type) return false;
-        const now = new Date();
-        if (product.discount.startDate && new Date(product.discount.startDate) > now) return false;
-        if (product.discount.endDate && new Date(product.discount.endDate) < now) return false;
-        return true;
-    };
-
-    const getDiscountedPrice = () => {
-        if (!isDiscountActive()) return product.price;
-        if (product.discount.type === 'percentage') {
-            return product.price - (product.price * product.discount.value / 100);
-        } else if (product.discount.type === 'fixed') {
-            return product.price - product.discount.value;
-        }
-        return product.price;
-    }
-
-    const discountedPrice = getDiscountedPrice();
-
-    const priceDisplay = discountedPrice < product.price
-        ? (
-            <p className="text-lg font-bold text-red-600">
-                {discountedPrice.toFixed(2)} BDT
-                <span className="text-sm text-gray-500 line-through ml-2">{product.price.toFixed(2)} BDT</span>
-            </p>
-        )
-        : <p className="text-lg font-bold text-gray-800">{product.price.toFixed(2)} BDT</p>;
-
+export default function NewProductCard({ product }) {
+    const discountActive = product.discount?.type &&
+        (!product.discount.startDate || new Date(product.discount.startDate) <= new Date()) &&
+        (!product.discount.endDate || new Date(product.discount.endDate) >= new Date());
+    const price = discountActive && product.discount.type === 'percentage'
+        ? product.price - (product.price * product.discount.value) / 100
+        : discountActive && product.discount.type === 'fixed'
+            ? product.price - product.discount.value
+            : product.price;
+    const image = product.images?.[0]?.url || '/BeetRoot.png';
 
     return (
-        <div className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <article className="group overflow-hidden rounded-2xl border border-[#dfece1] bg-white shadow-[0_8px_24px_rgba(13,84,47,0.05)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(13,84,47,0.12)]">
             <Link href={`/products/${product._id}`}>
-                <div className="relative w-full h-64">
-                    <Image
-                        src={product.images[0]?.url || 'https://placehold.co/400x300'}
-                        alt={product.name}
-                        fill={true}
-                        style={{ objectFit: "cover" }}
-                    />
+                <div className="relative h-56 overflow-hidden bg-[#edf7ef]">
+                    <Image src={image} alt={product.name} fill className="object-cover transition duration-500 group-hover:scale-105" />
+                    {discountActive && <span className="absolute left-3 top-3 rounded-full bg-[#c66a3d] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white">Special price</span>}
+                    <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold capitalize text-[#3f654b]">{product.category}</span>
                 </div>
                 <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-800 truncate">{product.name}</h3>
-                    <p className="text-sm text-gray-500 mb-2">{product.category}</p>
-                    {priceDisplay}
-                    <div className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
-                        View Details
+                    <h3 className="truncate font-bold text-[#173d27]">{product.name}</h3>
+                    <p className="mt-1 line-clamp-1 text-xs text-[#829087]">{product.description || 'Quality products for your farm'}</p>
+                    <div className="mt-4 flex items-end justify-between gap-2">
+                        <div><p className="text-xl font-bold text-[#0d542f]">৳{price.toFixed(2)}</p>{discountActive && <p className="text-xs text-[#9aa89d] line-through">৳{product.price.toFixed(2)}</p>}</div>
+                        <span className="rounded-lg bg-[#e4f5e8] px-3 py-2 text-xs font-bold text-[#2f8a52]">View details</span>
                     </div>
                 </div>
             </Link>
-        </div>
+        </article>
     );
-};
-
-export default NewProductCard;
+}
