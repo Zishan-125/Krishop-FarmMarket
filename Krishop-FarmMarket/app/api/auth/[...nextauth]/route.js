@@ -13,6 +13,7 @@ export const authOptions = {
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
+                if (!credentials?.email || !credentials?.password) return null;
                 await connect();
 
                 const user = await User.findOne({ email: credentials.email });
@@ -27,15 +28,18 @@ export const authOptions = {
                     throw new Error('Invalid password');
                 }
 
-                return { id: user._id, name: user.username, email: user.email, role: user.role };
+                return { id: user._id.toString(), name: user.username, email: user.email, role: user.role };
             }
         })
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
             if (user) {
                 token.id = user.id;
                 token.role = user.role;
+            }
+            if (trigger === "update" && session?.name) {
+                token.name = session.name;
             }
             return token;
         },

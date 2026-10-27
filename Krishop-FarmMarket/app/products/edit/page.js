@@ -41,7 +41,7 @@ export default function ProductDetailsPage({ params }) {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-96">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#79b84f]"></div>
             </div>
         );
     }
@@ -137,7 +137,7 @@ export default function ProductDetailsPage({ params }) {
                         <div className="flex items-center">
                             <span className="w-24 font-semibold text-gray-700">Stock:</span>
                             {product.stock > 0 ? (
-                                <span className="text-green-600 font-semibold bg-green-50 px-3 py-1 rounded-full text-sm">
+                                <span className="text-[#4d9f45] font-semibold bg-[#f4fae9] px-3 py-1 rounded-full text-sm">
                                     In Stock ({product.stock})
                                 </span>
                             ) : (

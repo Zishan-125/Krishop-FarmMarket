@@ -12,7 +12,7 @@ const PaymentModal = ({ onPaymentSubmit, onCancel }) => {
                 </div>
                 <div className="flex items-center justify-between gap-4">
                     <button
-                        className="flex-1 bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors"
+                        className="flex-1 bg-[#14532d] hover:bg-[#0b3d20] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors"
                         onClick={onPaymentSubmit}
                     >
                         Pay Now

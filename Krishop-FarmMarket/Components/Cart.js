@@ -65,7 +65,7 @@ const Cart = () => {
         <>
             <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-40">
                 <div className="bg-white border border-gray-300 p-5 shadow-lg w-11/12 md:w-4/5 max-w-2xl rounded-lg">
-                    <h2 className="text-xl text-green-700 mb-4">Your Cart</h2>
+                    <h2 className="text-xl text-[#14532d] mb-4">Your Cart</h2>
 
                     <div id="cart-items" className="max-h-96 overflow-y-auto">
                         {cart.length === 0 ? (
@@ -95,14 +95,14 @@ const Cart = () => {
                                     <div className="flex items-center gap-2">
                                         <button
                                             onClick={() => decreaseQuantity(index)}
-                                            className="px-3 py-1 bg-green-700 text-white border-none rounded cursor-pointer hover:bg-green-900"
+                                            className="px-3 py-1 bg-[#14532d] text-white border-none rounded cursor-pointer hover:bg-[#0b3d20]"
                                         >
                                             -
                                         </button>
                                         <span>{item.quantity}</span>
                                         <button
                                             onClick={() => increaseQuantity(index)}
-                                            className="px-3 py-1 bg-green-700 text-white border-none rounded cursor-pointer hover:bg-green-900"
+                                            className="px-3 py-1 bg-[#14532d] text-white border-none rounded cursor-pointer hover:bg-[#0b3d20]"
                                         >
                                             +
                                         </button>
@@ -121,7 +121,7 @@ const Cart = () => {
                     <div className="flex justify-end mt-4">
                         <button
                             onClick={handleCheckOut}
-                            className="px-5 py-2 bg-green-700 text-white border-none rounded cursor-pointer text-base mr-2 hover:bg-green-900"
+                            className="px-5 py-2 bg-[#14532d] text-white border-none rounded cursor-pointer text-base mr-2 hover:bg-[#0b3d20]"
                         >
                             Checkout
                         </button>

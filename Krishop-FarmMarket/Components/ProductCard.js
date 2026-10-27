@@ -12,7 +12,7 @@ const ProductCard = ({ product, addToCart, buyNow }) => {
                 width={192}
             />
             <h3 className="text-lg my-2 mx-0">{product.name}</h3>
-            <p className="text-base font-bold text-green-700 mb-2">{product.price.toFixed(2)} BDT</p>
+            <p className="text-base font-bold text-[#14532d] mb-2">{product.price.toFixed(2)} BDT</p>
             <button
                 onClick={() => addToCart(product)}
                 className="px-5 py-2 bg-orange-500 text-white border-none rounded cursor-pointer text-base mb-2 transition-colors duration-300 hover:bg-orange-700 hover:scale-105"

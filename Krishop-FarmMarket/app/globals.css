@@ -1,2 +1,65 @@
 @import "tailwindcss";
 
+:root {
+    --forest: #14532d;
+    --leaf: #4d9f45;
+    --crop-yellow: #d9ed67;
+    --crop-gold: #d1a51f;
+    --mint: #e7f5c8;
+    --cream: #f4fae9;
+    --ink: #10291b;
+    --muted: #5c7564;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--cream);
+    color: var(--ink);
+    background-image: radial-gradient(circle at 10% 0%, rgba(217, 237, 103, 0.16), transparent 28rem);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+    transition: all 160ms ease;
+}
+
+::selection {
+    background: var(--crop-yellow);
+    color: var(--forest);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--leaf);
+    outline: 3px solid rgba(217, 237, 103, 0.38);
+    outline-offset: 1px;
+}
+
+.crop-accent {
+    background: var(--crop-yellow);
+    color: var(--forest);
+}
+
+.crop-border {
+    border-color: var(--crop-yellow);
+}
+
+.soft-shadow {
+    box-shadow: 0 14px 40px rgba(23, 74, 54, 0.08);
+}
+
+.dashboard-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar-thumb {
+    background: #c8dcaa;
+    border-radius: 999px;
+}

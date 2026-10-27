@@ -30,7 +30,7 @@ export default function ProductDetailsPage({ params }) {
     }, [id]);
     if (loading) {
         return <div className="flex justify-center items-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-green-700"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#14532d]"></div>
         </div>;
     }
 
@@ -103,7 +103,7 @@ export default function ProductDetailsPage({ params }) {
                     <div className="flex items-center mb-6">
                         <span className="text-gray-700 font-semibold mr-2">Stock:</span>
                         {product.stock > 0 ? (
-                            <span className="text-green-600 font-semibold">In Stock ({product.stock} available)</span>
+                            <span className="text-[#4d9f45] font-semibold">In Stock ({product.stock} available)</span>
                         ) : (
                             <span className="text-red-600 font-semibold">Out of Stock</span>
                         )}

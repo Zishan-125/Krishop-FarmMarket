@@ -1,85 +1,41 @@
-"use client"
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import React from 'react';
+"use client";
 
-const DashNav = () => {
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+
+const links = {
+    farmer: [
+        ["Overview", "/dashboard/farmer"],
+        ["Marketplace", "/marketplace"],
+        ["List produce", "/listings/new"],
+        ["Profile", "/dashboard/farmer/profile"],
+    ],
+    buyer: [
+        ["Overview", "/dashboard/buyer"],
+        ["Marketplace", "/marketplace"],
+        ["Demand board", "/demands"],
+        ["Orders", "/dashboard/buyer/orders"],
+        ["Profile", "/dashboard/buyer/profile"],
+    ],
+};
+
+export default function DashNav() {
     const { data: session } = useSession();
+    const pathname = usePathname();
+    const roleLinks = links[session?.user?.role] || [];
 
     return (
-        <nav className="bg-gray-800 w-64 min-h-screen p-4  ">
-            <div className="flex flex-col space-y-6">
-                {/* Profile Section - Common for all */}
-                <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-10 h-10 rounded-full bg-gray-600"></div>
-                    <span className="text-white">{session?.user?.name}</span>
-                </div>
-
-                {/* Admin Navigation */}
-                {session?.user?.role === "admin" && (
-                    <ul className="space-y-2">
-                        <li>
-                            <Link href="/dashboard/admin/profile" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/dashboard/admin/products" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Products
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/dashboard/admin/orders" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Orders
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/dashboard/admin/products/new" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Post Product
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-
-                {/* Vendor Navigation */}
-                {session?.user?.role === "vendor" && (
-                    <ul className="space-y-2">
-                        <li>
-                            <Link href="/dashboard/vendor/profile" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/dashboard/vendor/orders" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Orders
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/dashboard/vendor/products/new" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Post Product
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-
-                {/* User Navigation */}
-                {session?.user?.role === "user" && (
-                    <ul className="space-y-2">
-                        <li>
-                            <Link href="/dashboard/user/profile" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/dashboard/user/orders" className="text-gray-300 hover:text-white flex items-center p-2 rounded hover:bg-gray-700">
-                                Orders
-                            </Link>
-                        </li>
-                    </ul>
-                )}
+        <nav className="flex-1 px-4 py-5">
+            <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#83a18b]">Workspace</p>
+            <div className="space-y-1">
+                {roleLinks.map(([label, href]) => (
+                    <Link key={href} href={href} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium ${pathname === href ? "bg-[#4d9f45] text-white shadow-sm" : "text-[#c7d8ca] hover:bg-[#1c7041] hover:text-white"}`}>
+                        <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                        {label}
+                    </Link>
+                ))}
             </div>
         </nav>
     );
-};
-
-export default DashNav;
+}
