@@ -1,0 +1,310 @@
+{
+ "source": "plantvillage_image_labels.csv (TFDS PlantVillage, 54,303 images, 38 classes)",
+ "grade_note": "grade tiers are an agronomic assumption applied by FarmMarket, not part of the dataset",
+ "classes": {
+  "0": {
+   "label": "Apple___Apple_scab",
+   "crop": "Apple",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Apple scab",
+   "n_images": 630
+  },
+  "1": {
+   "label": "Apple___Black_rot",
+   "crop": "Apple",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Black rot",
+   "n_images": 621
+  },
+  "2": {
+   "label": "Apple___Cedar_apple_rust",
+   "crop": "Apple",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Cedar apple rust",
+   "n_images": 275
+  },
+  "3": {
+   "label": "Apple___healthy",
+   "crop": "Apple",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 1645
+  },
+  "4": {
+   "label": "Blueberry___healthy",
+   "crop": "Blueberry",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 1502
+  },
+  "5": {
+   "label": "Cherry___healthy",
+   "crop": "Cherry",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 854
+  },
+  "6": {
+   "label": "Cherry___Powdery_mildew",
+   "crop": "Cherry",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Powdery mildew",
+   "n_images": 1052
+  },
+  "7": {
+   "label": "Corn___Cercospora_leaf_spot Gray_leaf_spot",
+   "crop": "Corn",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Cercospora leaf spot Gray leaf spot",
+   "n_images": 513
+  },
+  "8": {
+   "label": "Corn___Common_rust",
+   "crop": "Corn",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Common rust",
+   "n_images": 1192
+  },
+  "9": {
+   "label": "Corn___healthy",
+   "crop": "Corn",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 1162
+  },
+  "10": {
+   "label": "Corn___Northern_Leaf_Blight",
+   "crop": "Corn",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Northern Leaf Blight",
+   "n_images": 985
+  },
+  "11": {
+   "label": "Grape___Black_rot",
+   "crop": "Grape",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Black rot",
+   "n_images": 1180
+  },
+  "12": {
+   "label": "Grape___Esca_(Black_Measles)",
+   "crop": "Grape",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Esca (Black Measles)",
+   "n_images": 1383
+  },
+  "13": {
+   "label": "Grape___healthy",
+   "crop": "Grape",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 423
+  },
+  "14": {
+   "label": "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+   "crop": "Grape",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Leaf blight (Isariopsis Leaf Spot)",
+   "n_images": 1076
+  },
+  "15": {
+   "label": "Orange___Haunglongbing_(Citrus_greening)",
+   "crop": "Orange",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Haunglongbing (Citrus greening)",
+   "n_images": 5507
+  },
+  "16": {
+   "label": "Peach___Bacterial_spot",
+   "crop": "Peach",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Bacterial spot",
+   "n_images": 2297
+  },
+  "17": {
+   "label": "Peach___healthy",
+   "crop": "Peach",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 360
+  },
+  "18": {
+   "label": "Pepper,_bell___Bacterial_spot",
+   "crop": "Pepper, bell",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Bacterial spot",
+   "n_images": 997
+  },
+  "19": {
+   "label": "Pepper,_bell___healthy",
+   "crop": "Pepper, bell",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 1477
+  },
+  "20": {
+   "label": "Potato___Early_blight",
+   "crop": "Potato",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Early blight",
+   "n_images": 1000
+  },
+  "21": {
+   "label": "Potato___healthy",
+   "crop": "Potato",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 152
+  },
+  "22": {
+   "label": "Potato___Late_blight",
+   "crop": "Potato",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Late blight",
+   "n_images": 1000
+  },
+  "23": {
+   "label": "Raspberry___healthy",
+   "crop": "Raspberry",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 371
+  },
+  "24": {
+   "label": "Soybean___healthy",
+   "crop": "Soybean",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 5090
+  },
+  "25": {
+   "label": "Squash___Powdery_mildew",
+   "crop": "Squash",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Powdery mildew",
+   "n_images": 1835
+  },
+  "26": {
+   "label": "Strawberry___healthy",
+   "crop": "Strawberry",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 456
+  },
+  "27": {
+   "label": "Strawberry___Leaf_scorch",
+   "crop": "Strawberry",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Leaf scorch",
+   "n_images": 1109
+  },
+  "28": {
+   "label": "Tomato___Bacterial_spot",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Bacterial spot",
+   "n_images": 2127
+  },
+  "29": {
+   "label": "Tomato___Early_blight",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Early blight",
+   "n_images": 1000
+  },
+  "30": {
+   "label": "Tomato___healthy",
+   "crop": "Tomato",
+   "healthy": true,
+   "grade": "A",
+   "disease": null,
+   "n_images": 1591
+  },
+  "31": {
+   "label": "Tomato___Late_blight",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Late blight",
+   "n_images": 1908
+  },
+  "32": {
+   "label": "Tomato___Leaf_Mold",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Leaf Mold",
+   "n_images": 952
+  },
+  "33": {
+   "label": "Tomato___Septoria_leaf_spot",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Septoria leaf spot",
+   "n_images": 1771
+  },
+  "34": {
+   "label": "Tomato___Spider_mites Two-spotted_spider_mite",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "B",
+   "disease": "Spider mites Two-spotted spider mite",
+   "n_images": 1676
+  },
+  "35": {
+   "label": "Tomato___Target_Spot",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Target Spot",
+   "n_images": 1404
+  },
+  "36": {
+   "label": "Tomato___Tomato_mosaic_virus",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Tomato mosaic virus",
+   "n_images": 373
+  },
+  "37": {
+   "label": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+   "crop": "Tomato",
+   "healthy": false,
+   "grade": "C",
+   "disease": "Tomato Yellow Leaf Curl Virus",
+   "n_images": 5357
+  }
+ }
+}

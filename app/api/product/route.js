@@ -1,4 +1,3 @@
-
 import { Product } from "@/Model/Product";
 import connect from "@/utils/db";
 import { NextResponse } from "next/server";
@@ -13,12 +12,19 @@ export const GET = withAuth(async (req) => {
 });
 
 export const POST = withAuth(async (req) => {
-    if (req.user.role !== "admin" && req.user.role !== "vendor") {
+    // Check if user is admin, vendor, or your specific admin email account
+    const isAuthorized = 
+        req.user.role === "admin" || 
+        req.user.role === "vendor" || 
+        req.user.email === "zafarahmed01071969@gmail.com";
+
+    if (!isAuthorized) {
         return NextResponse.json(
             { message: "Unauthorized" },
             { status: 401 }
         );
     }
+
     await connect();
     console.log("Connected to database");
     const body = await req.json();

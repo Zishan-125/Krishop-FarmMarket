@@ -1,0 +1,247 @@
+{
+ "method": "Measured impact: what would the timing rule have earned on the last two years of REAL prices?",
+ "crops": {
+  "chickpea": {
+   "crop": "chickpea",
+   "n_origins": 103,
+   "mean_uplift_pct": 0.0,
+   "ci95_pct": [
+    0.0,
+    0.0
+   ],
+   "hold_rate_pct": 0.0,
+   "win_rate_when_holding_pct": null,
+   "gain_pct_quantiles_all_decisions": {
+    "p5": 0.0,
+    "p25": 0.0,
+    "p50": 0.0,
+    "p75": 0.0,
+    "p95": 0.0
+   },
+   "gain_pct_quantiles_when_holding": null,
+   "mean_difference_bdt_per_100kg": 0.0,
+   "mean_price_on_decision_dates": 90.41,
+   "n_hold_decisions": 0,
+   "examples": {},
+   "oracle_ceiling_pct": 3.17,
+   "period": [
+    "2023-06-05",
+    "2025-05-19"
+   ],
+   "model": "naive",
+   "wait_advice_enabled": false,
+   "policy_uplift_pct": 0.0
+  },
+  "cucumber": {
+   "crop": "cucumber",
+   "n_origins": 103,
+   "mean_uplift_pct": -0.59,
+   "ci95_pct": [
+    -1.17,
+    -0.05
+   ],
+   "hold_rate_pct": 29.1,
+   "win_rate_when_holding_pct": 13.3,
+   "gain_pct_quantiles_all_decisions": {
+    "p5": -1.3,
+    "p25": -0.65,
+    "p50": 0.0,
+    "p75": 0.0,
+    "p95": 0.0
+   },
+   "gain_pct_quantiles_when_holding": {
+    "p5": -14.41,
+    "p25": -1.3,
+    "p50": -1.3,
+    "p75": -1.3,
+    "p95": 5.03
+   },
+   "mean_difference_bdt_per_100kg": -15.0,
+   "mean_price_on_decision_dates": 37.6,
+   "n_hold_decisions": 30,
+   "examples": {
+    "best": {
+     "decision_date": "2024-10-21",
+     "wait_days": 1,
+     "price_on_decision_date": 42.5,
+     "realised_price_after_spoilage": 46.88,
+     "difference_bdt_per_100kg": 438.0
+    },
+    "worst": {
+     "decision_date": "2024-07-29",
+     "wait_days": 1,
+     "price_on_decision_date": 32.0,
+     "realised_price_after_spoilage": 26.65,
+     "difference_bdt_per_100kg": -535.0
+    },
+    "median_hold": {
+     "decision_date": "2024-03-04",
+     "wait_days": 1,
+     "price_on_decision_date": 30.0,
+     "realised_price_after_spoilage": 29.61,
+     "difference_bdt_per_100kg": -39.0
+    }
+   },
+   "oracle_ceiling_pct": 8.98,
+   "period": [
+    "2023-06-05",
+    "2025-05-19"
+   ],
+   "model": "gbm_no_weather",
+   "wait_advice_enabled": false,
+   "policy_uplift_pct": 0.0
+  },
+  "garlic": {
+   "crop": "garlic",
+   "n_origins": 103,
+   "mean_uplift_pct": 0.83,
+   "ci95_pct": [
+    0.06,
+    1.73
+   ],
+   "hold_rate_pct": 14.6,
+   "win_rate_when_holding_pct": 46.7,
+   "gain_pct_quantiles_all_decisions": {
+    "p5": -0.09,
+    "p25": 0.0,
+    "p50": 0.0,
+    "p75": 0.0,
+    "p95": 7.83
+   },
+   "gain_pct_quantiles_when_holding": {
+    "p5": -5.77,
+    "p25": -1.03,
+    "p50": -0.02,
+    "p75": 13.95,
+    "p95": 20.56
+   },
+   "mean_difference_bdt_per_100kg": 126.0,
+   "mean_price_on_decision_dates": 171.19,
+   "n_hold_decisions": 15,
+   "examples": {
+    "best": {
+     "decision_date": "2023-12-25",
+     "wait_days": 7,
+     "price_on_decision_date": 227.5,
+     "realised_price_after_spoilage": 264.06,
+     "difference_bdt_per_100kg": 3656.0
+    },
+    "worst": {
+     "decision_date": "2024-07-22",
+     "wait_days": 10,
+     "price_on_decision_date": 165.0,
+     "realised_price_after_spoilage": 154.07,
+     "difference_bdt_per_100kg": -1093.0
+    },
+    "median_hold": {
+     "decision_date": "2025-03-31",
+     "wait_days": 1,
+     "price_on_decision_date": 95.0,
+     "realised_price_after_spoilage": 94.98,
+     "difference_bdt_per_100kg": -2.0
+    }
+   },
+   "oracle_ceiling_pct": 9.96,
+   "period": [
+    "2023-06-05",
+    "2025-05-19"
+   ],
+   "model": "seasonal_naive",
+   "wait_advice_enabled": true,
+   "policy_uplift_pct": 0.83
+  },
+  "green_chilli": {
+   "crop": "green_chilli",
+   "n_origins": 103,
+   "mean_uplift_pct": 0.0,
+   "ci95_pct": [
+    0.0,
+    0.0
+   ],
+   "hold_rate_pct": 0.0,
+   "win_rate_when_holding_pct": null,
+   "gain_pct_quantiles_all_decisions": {
+    "p5": 0.0,
+    "p25": 0.0,
+    "p50": 0.0,
+    "p75": 0.0,
+    "p95": 0.0
+   },
+   "gain_pct_quantiles_when_holding": null,
+   "mean_difference_bdt_per_100kg": 0.0,
+   "mean_price_on_decision_dates": 99.36,
+   "n_hold_decisions": 0,
+   "examples": {},
+   "oracle_ceiling_pct": 27.26,
+   "period": [
+    "2023-06-05",
+    "2025-05-19"
+   ],
+   "model": "naive",
+   "wait_advice_enabled": false,
+   "policy_uplift_pct": 0.0
+  },
+  "sweet_pumpkin": {
+   "crop": "sweet_pumpkin",
+   "n_origins": 103,
+   "mean_uplift_pct": 2.42,
+   "ci95_pct": [
+    -0.02,
+    5.38
+   ],
+   "hold_rate_pct": 24.3,
+   "win_rate_when_holding_pct": 48.0,
+   "gain_pct_quantiles_all_decisions": {
+    "p5": -4.52,
+    "p25": 0.0,
+    "p50": 0.0,
+    "p75": 0.0,
+    "p95": 18.77
+   },
+   "gain_pct_quantiles_when_holding": {
+    "p5": -20.89,
+    "p25": -1.11,
+    "p50": -0.04,
+    "p75": 8.16,
+    "p95": 52.78
+   },
+   "mean_difference_bdt_per_100kg": 46.0,
+   "mean_price_on_decision_dates": 24.86,
+   "n_hold_decisions": 25,
+   "examples": {
+    "best": {
+     "decision_date": "2024-04-22",
+     "wait_days": 8,
+     "price_on_decision_date": 16.0,
+     "realised_price_after_spoilage": 32.2,
+     "difference_bdt_per_100kg": 1620.0
+    },
+    "worst": {
+     "decision_date": "2024-08-26",
+     "wait_days": 6,
+     "price_on_decision_date": 24.0,
+     "realised_price_after_spoilage": 15.9,
+     "difference_bdt_per_100kg": -810.0
+    },
+    "median_hold": {
+     "decision_date": "2024-07-15",
+     "wait_days": 1,
+     "price_on_decision_date": 23.0,
+     "realised_price_after_spoilage": 22.99,
+     "difference_bdt_per_100kg": -1.0
+    }
+   },
+   "oracle_ceiling_pct": 13.96,
+   "period": [
+    "2023-06-05",
+    "2025-05-19"
+   ],
+   "model": "gbm_no_weather",
+   "wait_advice_enabled": false,
+   "policy_uplift_pct": 0.0
+  }
+ },
+ "average_uplift_pct": 0.53,
+ "average_policy_uplift_pct": 0.17,
+ "note": "Timing effect only (grade effects are not measurable from this data). Prices move slowly, so the rule mostly recommends selling immediately; waiting is only advised for crops where the replay shows a reliable gain. Wholesale price is a farm-gate proxy; a modest or zero average uplift is the honest result."
+}

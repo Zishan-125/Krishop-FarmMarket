@@ -1,0 +1,29 @@
+# One command demo:  docker compose up --build   (then open http://localhost:3000/farmmarket)
+# Demo logins: farmer@demo.test (farmer) / buyer@demo.test (buyer), password demo1234. Demo values only.
+services:
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+      - ./docker/mongo-seed.js:/docker-entrypoint-initdb.d/seed.js:ro
+  ml:
+    build: { context: ., dockerfile: ml-service/Dockerfile }
+    ports: ["8000:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      retries: 12
+  web:
+    build: .
+    ports: ["3000:3000"]
+    environment:
+      MONGO_URI: mongodb://mongo:27017/krishop
+      ML_SERVICE_URL: http://ml:8000
+      NEXTAUTH_SECRET: demo-secret-change-me
+      NEXTAUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+    depends_on:
+      mongo: { condition: service_started }
+      ml: { condition: service_healthy }
+volumes:
+  mongo-data:

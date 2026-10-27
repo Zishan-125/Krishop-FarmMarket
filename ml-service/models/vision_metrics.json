@@ -1,0 +1,62 @@
+{
+ "model": "hist_gb",
+ "candidates": {
+  "extra_trees": {
+   "accuracy": 0.8835,
+   "macro_f1": 0.8798,
+   "fit_s": 7
+  },
+  "hist_gb": {
+   "accuracy": 0.9007,
+   "macro_f1": 0.9008,
+   "fit_s": 55
+  }
+ },
+ "n_train": 6041,
+ "n_test": 1511,
+ "n_classes": 38,
+ "ood_threshold": 22.283,
+ "test_accuracy": 0.9007,
+ "test_macro_f1": 0.9008,
+ "per_class_recall": {
+  "Apple___Apple_scab": 0.9,
+  "Apple___Black_rot": 0.925,
+  "Apple___Cedar_apple_rust": 0.975,
+  "Apple___healthy": 0.85,
+  "Blueberry___healthy": 0.95,
+  "Cherry___Powdery_mildew": 0.925,
+  "Cherry___healthy": 0.925,
+  "Corn___Cercospora_leaf_spot Gray_leaf_spot": 0.875,
+  "Corn___Common_rust": 0.975,
+  "Corn___Northern_Leaf_Blight": 0.875,
+  "Corn___healthy": 1.0,
+  "Grape___Black_rot": 0.825,
+  "Grape___Esca_(Black_Measles)": 0.925,
+  "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": 0.925,
+  "Grape___healthy": 1.0,
+  "Orange___Haunglongbing_(Citrus_greening)": 0.925,
+  "Peach___Bacterial_spot": 0.675,
+  "Peach___healthy": 0.925,
+  "Pepper,_bell___Bacterial_spot": 0.95,
+  "Pepper,_bell___healthy": 0.9,
+  "Potato___Early_blight": 0.95,
+  "Potato___Late_blight": 0.9,
+  "Potato___healthy": 0.839,
+  "Raspberry___healthy": 0.975,
+  "Soybean___healthy": 0.8,
+  "Squash___Powdery_mildew": 0.925,
+  "Strawberry___Leaf_scorch": 0.9,
+  "Strawberry___healthy": 0.875,
+  "Tomato___Bacterial_spot": 0.875,
+  "Tomato___Early_blight": 0.75,
+  "Tomato___Late_blight": 0.75,
+  "Tomato___Leaf_Mold": 0.95,
+  "Tomato___Septoria_leaf_spot": 0.825,
+  "Tomato___Spider_mites Two-spotted_spider_mite": 0.9,
+  "Tomato___Target_Spot": 0.925,
+  "Tomato___Tomato_Yellow_Leaf_Curl_Virus": 0.9,
+  "Tomato___Tomato_mosaic_virus": 0.975,
+  "Tomato___healthy": 0.975
+ },
+ "note": "Random stratified split of a PlantVillage sample. PlantVillage has several photos per leaf on uniform lab backgrounds, so this over-states field accuracy."
+}

@@ -1,0 +1,24 @@
+# FarmMarket ML service (Python 3.10+). Install: pip install -r requirements.txt
+# Run:     cd ml-service && uvicorn farmmarket.api:app --port 8000
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+python-multipart>=0.0.9
+pandas>=2.1
+numpy>=1.26
+scipy>=1.11
+scikit-learn==1.8.0   # pinned: models/grader.joblib was pickled with this version (also used by the GBM forecasters)
+joblib>=1.4
+statsmodels>=0.14
+prophet>=1.1.5
+pillow>=10.2
+requests>=2.31
+# LLM advisor uses the Gemini REST API through `requests` (set GEMINI_API_KEY); no extra package needed
+# --- dev ---
+pytest>=8.0
+httpx>=0.27
+# --- optional: train the learned produce-grading model on PlantVillage ---
+ torch>=2.2
+ torchvision>=0.17
+ tensorflow-datasets>=4.9   # train_vision.py pulls PlantVillage images from TFDS
+ tensorflow>=2.15

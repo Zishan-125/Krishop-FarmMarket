@@ -3,46 +3,78 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import logo from '../public/logo.png';
 import { useCart } from '@/context/CartContext';
 
-const Header = () => {
+const Header = ({ searchQuery = '', setSearchQuery }) => {
     const { data: session } = useSession();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { viewCart, cart, clearCart } = useCart();
+    const router = useRouter();
 
     const handleLogout = () => {
         clearCart();
         signOut();
     };
 
+    // Smooth scroll to Footer contact section
+    const handleContactClick = () => {
+        const footerElement = document.querySelector('footer');
+        if (footerElement) {
+            footerElement.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            router.push('/#contact');
+        }
+    };
+
     return (
         <header className="relative">
             <div className="flex items-center justify-between p-4 border-b border-gray-300 flex-wrap md:flex-nowrap">
-                <div className="flex items-center cursor-pointer" onClick={() => window.location.href = '/'}>
+                <div 
+                    className="flex items-center cursor-pointer" 
+                    onClick={() => {
+                        if (setSearchQuery) setSearchQuery('');
+                        window.location.href = '/';
+                    }}
+                >
                     <Image src={logo} alt="KriShop Logo" height={48} width={48} className="w-12 h-12 object-contain" />
                     <h1 className="text-3xl md:text-5xl ml-2 text-green-700">Kri<span className="text-black">Shop</span></h1>
                 </div>
 
-                <div className="flex items-center border-2 border-gray-300 rounded-full px-4 py-2 w-full md:w-96 bg-white order-3 md:order-2 mt-4 md:mt-0">
+                {/* Real-Time Search Input */}
+                <div className="flex items-center border-2 border-gray-300 rounded-full px-4 py-2 w-full md:w-96 bg-white order-3 md:order-2 mt-4 md:mt-0 shadow-sm focus-within:border-green-600 transition">
                     <input
                         type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
                         placeholder="Search for products"
-                        className="border-none outline-none flex-1 text-lg"
+                        className="border-none outline-none flex-1 text-lg bg-transparent"
                     />
-                    <i className="fas fa-search text-gray-600"></i>
+                    {searchQuery ? (
+                        <button 
+                            type="button" 
+                            onClick={() => setSearchQuery && setSearchQuery('')}
+                            className="text-gray-400 hover:text-gray-600 font-bold px-1 focus:outline-none"
+                        >
+                            ✕
+                        </button>
+                    ) : (
+                        <i className="fas fa-search text-gray-600"></i>
+                    )}
                 </div>
 
                 {/* Hamburger Menu Button */}
-                <div className=" flex h-16 w-16 text-black md:hidden order-2 md:order-3">
+                <div className="flex h-16 w-16 text-black md:hidden order-2 md:order-3 items-center justify-center">
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-4xl focus:outline-none">
-                        <Image src={isMenuOpen ? '/hamburg.svg' : '/hamburg.svg'} alt="Menu Icon" width={24} height={24} />
+                        <Image src={'/hamburg.svg'} alt="Menu Icon" width={24} height={24} />
                     </button>
                 </div>
 
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center space-x-6 order-4">
+                    <Link href="/farmmarket" className="font-semibold text-green-700 hover:underline">FarmMarket</Link>
                     {session ? (
                         <>
                             <span>Welcome, {session?.user?.name}</span>
@@ -67,10 +99,13 @@ const Header = () => {
                             </Link>
                         </>
                     )}
-                    <div className="flex flex-col items-center cursor-pointer">
+                    
+                    {/* Functional Contact Button */}
+                    <div className="flex flex-col items-center cursor-pointer hover:text-green-700 transition" onClick={handleContactClick}>
                         <i className="fas fa-headset text-xl mb-1"></i>
                         <span>Contact</span>
                     </div>
+
                     <div className="flex flex-col items-center cursor-pointer" onClick={viewCart}>
                         <div className="relative">
                             <i className="fas fa-shopping-cart text-xl mb-1"></i>
@@ -85,7 +120,6 @@ const Header = () => {
                 </div>
             </div>
 
-
             {/* Mobile Menu */}
             {
                 isMenuOpen && (
@@ -93,7 +127,7 @@ const Header = () => {
                         {session ? (
                             <>
                                 <div className="mb-4">
-                                    <span>Welcome, {session?.user?.username}</span>
+                                    <span>Welcome, {session?.user?.name}</span>
                                 </div>
                                 <div className="cursor-pointer mb-4" onClick={handleLogout}>
                                     <i className="fas fa-sign-out-alt mr-2"></i>
@@ -106,7 +140,20 @@ const Header = () => {
                                 <Link href="/register" className="block mb-4" onClick={() => setIsMenuOpen(false)}><i className="fas fa-user-plus mr-2"></i>Register</Link>
                             </>
                         )}
-                        <Link href="#" className="block mb-4" onClick={() => setIsMenuOpen(false)}><i className="fas fa-headset mr-2"></i>Contact</Link>
+                        <Link href="/farmmarket" className="block mb-4" onClick={() => setIsMenuOpen(false)}><i className="fas fa-chart-line mr-2"></i>FarmMarket</Link>
+                        
+                        {/* Mobile Contact Action */}
+                        <div 
+                            className="cursor-pointer mb-4 block" 
+                            onClick={() => { 
+                                setIsMenuOpen(false); 
+                                handleContactClick(); 
+                            }}
+                        >
+                            <i className="fas fa-headset mr-2"></i>
+                            <span>Contact</span>
+                        </div>
+
                         <div className="cursor-pointer" onClick={() => { viewCart(); setIsMenuOpen(false); }}>
                             <i className="fas fa-shopping-cart mr-2"></i>
                             <span>Cart</span>

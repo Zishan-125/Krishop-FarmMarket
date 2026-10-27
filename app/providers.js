@@ -5,7 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export function Providers({ children }) {
+export default function Providers({ children }) {
   return (
     <SessionProvider>
       <CartProvider>
