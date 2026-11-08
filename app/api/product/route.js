@@ -1,34 +1,27 @@
-import { Product } from "@/Model/Product";
-import connect from "@/utils/db";
-import { NextResponse } from "next/server";
-import { withAuth } from "@/utils/withAuth";
+import { NextResponse } from 'next/server';
+import connect from '@/utils/db';
+import { Product } from '@/Model/Product';
+import mongoose from 'mongoose';
 
-export const GET = withAuth(async (req) => {
-    await connect();
-    console.log("Connected to database");
-    const data = await Product.find();
-    console.log(data);
-    return NextResponse.json(data, { status: 200 });
-});
+export async function GET(request, { params }) {
+    try {
+        await connect();
+        const resolvedParams = await params;
+        const id = resolvedParams.id;
 
-export const POST = withAuth(async (req) => {
-    // Check if user is admin, vendor, or your specific admin email account
-    const isAuthorized = 
-        req.user.role === "admin" || 
-        req.user.role === "vendor" || 
-        req.user.email === "zafarahmed01071969@gmail.com";
+        // "new" athoba kono invalid ObjectId ashle shathe shathe 400 return korbe
+        if (!id || id === 'new' || !mongoose.Types.ObjectId.isValid(id)) {
+            return NextResponse.json({ message: 'Invalid or reserved product ID' }, { status: 400 });
+        }
 
-    if (!isAuthorized) {
-        return NextResponse.json(
-            { message: "Unauthorized" },
-            { status: 401 }
-        );
+        const product = await Product.findById(id).lean();
+        if (!product) {
+            return NextResponse.json({ message: 'Product not found' }, { status: 404 });
+        }
+
+        return NextResponse.json(product, { status: 200 });
+    } catch (error) {
+        console.error('Error fetching product detail:', error);
+        return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }
-
-    await connect();
-    console.log("Connected to database");
-    const body = await req.json();
-    const newProduct = new Product({ ...body, vendor: req.user.id });
-    const savedProduct = await newProduct.save();
-    return NextResponse.json(savedProduct, { status: 201 });
-});
+}

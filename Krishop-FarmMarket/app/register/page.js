@@ -1,15 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 const RegisterPage = () => {
+    const router = useRouter();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('farmer');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,12 +24,22 @@ const RegisterPage = () => {
             return;
         }
 
+        setLoading(true);
+
         try {
             const user = { username, email, password, role };
             await axios.post('/api/register', user);
-            setSuccess('Registration successful! Please login.');
+            
+            setSuccess('Registration successful! Redirecting to login...');
+            
+            // Automatically redirect to login page after 1.5 seconds
+            setTimeout(() => {
+                router.push('/login');
+            }, 1500);
         } catch (err) {
-            setError('An unexpected error occurred.');
+            // Safely capture backend error messages (e.g., user already exists)
+            setError(err.response?.data?.message || 'An unexpected error occurred.');
+            setLoading(false);
         }
     };
 
@@ -36,9 +49,15 @@ const RegisterPage = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="role" className="block mb-1">I am joining as</label>
-                    <select id="role" value={role} onChange={(e) => setRole(e.target.value)} className="w-full p-2 border rounded">
+                    <select 
+                        id="role" 
+                        value={role} 
+                        onChange={(e) => setRole(e.target.value)} 
+                        className="w-full p-2 border rounded"
+                    >
                         <option value="farmer">Farmer</option>
                         <option value="buyer">Buyer</option>
+                        <option value="vendor">Vendor</option>
                     </select>
                 </div>
                 <div className="mb-4">
@@ -75,10 +94,14 @@ const RegisterPage = () => {
                         className="w-full p-2 border rounded"
                     />
                 </div>
-                {error && <p className="text-red-500">{error}</p>}
-                {success && <p className="text-[#79b84f]">{success}</p>}
-                <button type="submit" className="w-full bg-[#14532d] text-white p-2 rounded hover:bg-[#0b3d20]">
-                    Register
+                {error && <p className="text-red-500 mb-4">{error}</p>}
+                {success && <p className="text-[#79b84f] mb-4">{success}</p>}
+                <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="w-full bg-[#14532d] text-white p-2 rounded hover:bg-[#0b3d20] disabled:opacity-50"
+                >
+                    {loading ? 'Registering...' : 'Register'}
                 </button>
             </form>
         </div>

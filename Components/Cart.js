@@ -1,5 +1,6 @@
 'use client';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
@@ -8,11 +9,19 @@ import { useCart } from '@/context/CartContext';
 
 const Cart = () => {
     const { cart, closeCart, increaseQuantity, decreaseQuantity, removeFromCart, removeSelectedFromCart } = useCart();
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
+    const router = useRouter();
     const [selectedItems, setSelectedItems] = useState([]);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
 
     const handleCheckOut = () => {
+        // Enforce login check before allowing checkout
+        if (status === 'unauthenticated' || !session) {
+            closeCart();
+            router.push('/login');
+            return;
+        }
+
         if (selectedItems.length === 0) {
             alert("Please select at least one item to checkout.");
             return;
@@ -33,7 +42,13 @@ const Cart = () => {
     }
 
     const handlePaymentSubmit = async () => {
-        // setShowPaymentModal(false); // keep it open or show loading state
+        // Double check session inside submit handler
+        if (!session?.user) {
+            closeCart();
+            router.push('/login');
+            return;
+        }
+
         const transactionId = 'TXN-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
         const orderedItems = {
             items: selectedItems,
@@ -41,9 +56,6 @@ const Cart = () => {
             transactionId: transactionId
         };
         try {
-            if (!session?.user) {
-                throw new Error('User not authenticated');
-            }
             const response = await axios.post('/api/checkout', {
                 ...orderedItems
             });

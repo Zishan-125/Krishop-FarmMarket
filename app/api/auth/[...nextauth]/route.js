@@ -31,7 +31,7 @@ export const authOptions = {
                     id: user._id.toString(), 
                     name: user.username, 
                     email: user.email, 
-                    role: user.role,
+                    role: user.role || 'user', // Fallback role if undefined
                     image: user.image || '' 
                 };
             }
@@ -53,6 +53,9 @@ export const authOptions = {
                 } else if (session?.user?.image) {
                     token.image = session.user.image;
                 }
+                if (session?.role) {
+                    token.role = session.role;
+                }
             }
             
             return token;
@@ -60,7 +63,7 @@ export const authOptions = {
         async session({ session, token }) {
             if (token) {
                 session.user.id = token.id;
-                session.user.role = token.role;
+                session.user.role = token.role || 'user';
                 session.user.image = token.image;
             }
             return session;

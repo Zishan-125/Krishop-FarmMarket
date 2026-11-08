@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import logo from '../public/logo.png';
 import { useCart } from '@/context/CartContext';
@@ -13,16 +13,17 @@ const Header = ({ searchQuery = '', setSearchQuery }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { viewCart, cart, clearCart } = useCart();
     const router = useRouter();
+    const pathname = usePathname();
 
     const handleLogout = () => {
         clearCart();
         signOut();
     };
 
-    // Smooth scroll to Footer contact section
+    // Smooth scroll to Footer contact section or route to /#contact if on another page
     const handleContactClick = () => {
         const footerElement = document.querySelector('footer');
-        if (footerElement) {
+        if (pathname === '/' && footerElement) {
             footerElement.scrollIntoView({ behavior: 'smooth' });
         } else {
             router.push('/#contact');
@@ -36,7 +37,7 @@ const Header = ({ searchQuery = '', setSearchQuery }) => {
                     className="flex items-center cursor-pointer" 
                     onClick={() => {
                         if (setSearchQuery) setSearchQuery('');
-                        window.location.href = '/';
+                        router.push('/');
                     }}
                 >
                     <Image src={logo} alt="KriShop Logo" height={48} width={48} className="w-12 h-12 object-contain" />
@@ -74,6 +75,7 @@ const Header = ({ searchQuery = '', setSearchQuery }) => {
 
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center space-x-6 order-4">
+                    <Link href="#contact" className="font-semibold text-green-700 hover:underline">Products</Link>
                     <Link href="/farmmarket" className="font-semibold text-green-700 hover:underline">FarmMarket</Link>
                     {session ? (
                         <>
@@ -100,7 +102,7 @@ const Header = ({ searchQuery = '', setSearchQuery }) => {
                         </>
                     )}
                     
-                    {/* Functional Contact Button */}
+                    {/* Functional Contact Button with routing/scrolling */}
                     <div className="flex flex-col items-center cursor-pointer hover:text-green-700 transition" onClick={handleContactClick}>
                         <i className="fas fa-headset text-xl mb-1"></i>
                         <span>Contact</span>
@@ -123,28 +125,29 @@ const Header = ({ searchQuery = '', setSearchQuery }) => {
             {/* Mobile Menu */}
             {
                 isMenuOpen && (
-                    <nav className="md:hidden bg-gray-100 p-4">
+                    <nav className="md:hidden bg-gray-100 p-4 space-y-3">
+                        <Link href="#contact" className="block" onClick={() => setIsMenuOpen(false)}><i className="fas fa-box mr-2"></i>Products</Link>
+                        <Link href="/farmmarket" className="block" onClick={() => setIsMenuOpen(false)}><i className="fas fa-chart-line mr-2"></i>FarmMarket</Link>
                         {session ? (
                             <>
-                                <div className="mb-4">
+                                <div>
                                     <span>Welcome, {session?.user?.name}</span>
                                 </div>
-                                <div className="cursor-pointer mb-4" onClick={handleLogout}>
+                                <div className="cursor-pointer" onClick={handleLogout}>
                                     <i className="fas fa-sign-out-alt mr-2"></i>
                                     <span>Logout</span>
                                 </div>
                             </>
                         ) : (
                             <>
-                                <Link href="/login" className="block mb-4" onClick={() => setIsMenuOpen(false)}><i className="fas fa-user mr-2"></i>Login</Link>
-                                <Link href="/register" className="block mb-4" onClick={() => setIsMenuOpen(false)}><i className="fas fa-user-plus mr-2"></i>Register</Link>
+                                <Link href="/login" className="block" onClick={() => setIsMenuOpen(false)}><i className="fas fa-user mr-2"></i>Login</Link>
+                                <Link href="/register" className="block" onClick={() => setIsMenuOpen(false)}><i className="fas fa-user-plus mr-2"></i>Register</Link>
                             </>
                         )}
-                        <Link href="/farmmarket" className="block mb-4" onClick={() => setIsMenuOpen(false)}><i className="fas fa-chart-line mr-2"></i>FarmMarket</Link>
                         
                         {/* Mobile Contact Action */}
                         <div 
-                            className="cursor-pointer mb-4 block" 
+                            className="cursor-pointer block" 
                             onClick={() => { 
                                 setIsMenuOpen(false); 
                                 handleContactClick(); 
@@ -154,7 +157,7 @@ const Header = ({ searchQuery = '', setSearchQuery }) => {
                             <span>Contact</span>
                         </div>
 
-                        <div className="cursor-pointer" onClick={() => { viewCart(); setIsMenuOpen(false); }}>
+                        <div className="cursor-pointer block" onClick={() => { viewCart(); setIsMenuOpen(false); }}>
                             <i className="fas fa-shopping-cart mr-2"></i>
                             <span>Cart</span>
                         </div>
@@ -176,7 +179,7 @@ const Header = ({ searchQuery = '', setSearchQuery }) => {
                     <small className="font-normal text-black">প্রাকৃতিক উৎপাদন ব্যবস্থার প্রচারে আমরা প্রতিশ্রুতিবদ্ধ</small>
                 </div>
             </div>
-        </header >
+        </header>
     );
 };
 

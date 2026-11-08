@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { getSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 const CROPS = ["chickpea", "cucumber", "garlic", "green_chilli", "sweet_pumpkin"];
@@ -333,13 +335,126 @@ function Trace() {
 
 
 export default function FarmMarketPage() {
+    const router = useRouter();
     const [tab, setTab] = useState("journey");
-    const View = useMemo(() => ({ journey: Journey, market: Prices, marketplace: Marketplace, dispatch: Dispatch, trace: Trace, evidence: Evidence })[tab], [tab]);
+    const [authStatus, setAuthStatus] = useState("checking");
+
+    useEffect(() => {
+        let active = true;
+
+        async function checkLogin() {
+            try {
+                const session = await getSession();
+
+                if (!active) return;
+
+                if (session?.user) {
+                    setAuthStatus("authenticated");
+                    return;
+                }
+
+                setAuthStatus("unauthenticated");
+
+                const callbackUrl =
+                    window.location.pathname + window.location.search;
+
+                router.replace(
+                    `/login?callbackUrl=${encodeURIComponent(callbackUrl)}`
+                );
+            } catch {
+                if (!active) return;
+
+                setAuthStatus("unauthenticated");
+                router.replace(
+                    `/login?callbackUrl=${encodeURIComponent(
+                        window.location.pathname + window.location.search
+                    )}`
+                );
+            }
+        }
+
+        checkLogin();
+
+        return () => {
+            active = false;
+        };
+    }, [router]);
+
+    const View = useMemo(
+        () =>
+            ({
+                journey: Journey,
+                market: Prices,
+                marketplace: Marketplace,
+                dispatch: Dispatch,
+                trace: Trace,
+                evidence: Evidence,
+            })[tab],
+        [tab]
+    );
+
+    // Do not render FarmMarket components or fire their API requests
+    // until NextAuth confirms that a user session exists.
+    if (authStatus !== "authenticated") {
+        return (
+            <div className="min-h-[50vh] flex items-center justify-center p-6">
+                <div className="max-w-md w-full text-center border rounded-xl p-8 shadow-sm bg-white">
+                    <h2 className="text-2xl font-bold text-green-700">
+                        FarmMarket
+                    </h2>
+
+                    <p className="mt-3 text-gray-600">
+                        {authStatus === "checking"
+                            ? "Checking your login..."
+                            : "You must log in to access FarmMarket features."}
+                    </p>
+
+                    {authStatus === "unauthenticated" && (
+                        <button
+                            type="button"
+                            onClick={() =>
+                                router.push(
+                                    `/login?callbackUrl=${encodeURIComponent(
+                                        window.location.pathname +
+                                            window.location.search
+                                    )}`
+                                )
+                            }
+                            className="mt-5 rounded bg-green-700 px-5 py-2 text-white hover:bg-green-800"
+                        >
+                            Go to Login
+                        </button>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div>
             <h2 className="text-3xl font-bold text-green-700">FarmMarket</h2>
-            <p className="text-gray-600 mb-4">Upload a photo, get a fair price, and decide whether to sell today or wait, using real Bangladesh market prices.</p>
-            <nav className="flex flex-wrap gap-2 mb-5">{TABS.map(([k, l]) => <button key={k} onClick={() => setTab(k)} className={`px-3 py-1.5 rounded-full border text-sm ${tab === k ? "bg-green-700 text-white border-green-700" : "bg-white hover:bg-green-50"}`}>{l}</button>)}</nav>
+            <p className="text-gray-600 mb-4">
+                Upload a photo, get a fair price, and decide whether to sell
+                today or wait, using real Bangladesh market prices.
+            </p>
+
+            <nav className="flex flex-wrap gap-2 mb-5">
+                {TABS.map(([key, title]) => (
+                    <button
+                        key={key}
+                        type="button"
+                        onClick={() => setTab(key)}
+                        className={`px-3 py-1.5 rounded-full border text-sm ${
+                            tab === key
+                                ? "bg-green-700 text-white border-green-700"
+                                : "bg-white hover:bg-green-50"
+                        }`}
+                    >
+                        {title}
+                    </button>
+                ))}
+            </nav>
+
             <View />
         </div>
     );
